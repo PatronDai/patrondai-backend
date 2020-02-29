@@ -29,9 +29,11 @@ app.get("/campaign/:address", (req, res) => {
       [campaignAddress],
       (error, data) => {
         if (error) {
+          res.status(500);
           return res.json({ success: false, error: error.message });
         }
         if (!data) {
+          res.status(404);
           return res.json({ success: false, error: "no data" });
         }
         res.json({ success: true, data: JSON.parse(data.data) });
@@ -51,6 +53,7 @@ app.post("/campaign/:address", async (req, res) => {
   try {
     raiser = await campaignContract.getRaiser();
   } catch (error) {
+    res.status(404);
     res.json({
       success: false,
       message: error.message
@@ -68,6 +71,7 @@ app.post("/campaign/:address", async (req, res) => {
       recoveredAddress: address,
       raiserAddress: raiser
     });
+    res.status(403);
     return;
   }
   db.serialize(() => {
@@ -76,6 +80,7 @@ app.post("/campaign/:address", async (req, res) => {
       [campaignAddress, JSON.stringify(req.body.data)],
       (error, data) => {
         if (error) {
+          res.status(500);
           return res.json({ success: false, error: error.message });
         }
         res.json({ success: true, ...data });
