@@ -5,6 +5,12 @@ const sqlite3 = require("sqlite3").verbose();
 const campaignAbi = require("./campaignAbi");
 const bodyParser = require("body-parser");
 
+const featured = [
+  "0xaf172784a2b9296a435ce0323b8fca8c8e22846f",
+  "0xf3fcd9eabab8bfae1a26f2628922223171e87ef2",
+  "0xA86d42Ee3599C7672b5A461f95f5e3372c977436"
+];
+
 const provider = new ethers.providers.JsonRpcProvider(
   "https://rinkeby.infura.io/v3/d456fa9795db4641a0989d8016b3414e"
 );
@@ -89,4 +95,7 @@ app.post("/campaign/:address", async (req, res) => {
   });
 });
 
+app.get("/featured", async (req, res) => {
+  res.json({ success: true, featured });
+});
 app.listen(8080);
