@@ -57,7 +57,7 @@ app.post("/campaign/:address", async (req, res) => {
   );
   let raiser;
   try {
-    raiser = await campaignContract.getRaiser();
+    raiser = await campaignContract.getOwner();
   } catch (error) {
     res.status(404);
     res.json({
@@ -98,4 +98,7 @@ app.post("/campaign/:address", async (req, res) => {
 app.get("/featured", async (req, res) => {
   res.json({ success: true, featured });
 });
+
+app.use("/relayer", require("./relayer"));
+
 app.listen(8080);

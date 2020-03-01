@@ -13,32 +13,13 @@ module.exports = [
       },
       {
         internalType: "address",
-        name: "raiser",
+        name: "owner",
         type: "address"
       }
     ],
     payable: false,
     stateMutability: "nonpayable",
     type: "constructor"
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: "bytes32",
-        name: "mediumPostUUID",
-        type: "bytes32"
-      },
-      {
-        indexed: false,
-        internalType: "bytes32",
-        name: "bodyHash",
-        type: "bytes32"
-      }
-    ],
-    name: "Announcement",
-    type: "event"
   },
   {
     anonymous: false,
@@ -63,7 +44,7 @@ module.exports = [
         type: "uint256"
       }
     ],
-    name: "RaiserWithdraw",
+    name: "OwnerWithdraw",
     type: "event"
   },
   {
@@ -72,7 +53,7 @@ module.exports = [
       {
         indexed: true,
         internalType: "address",
-        name: "investor",
+        name: "patron",
         type: "address"
       },
       {
@@ -82,7 +63,7 @@ module.exports = [
         type: "uint256"
       }
     ],
-    name: "SupporterDeposit",
+    name: "PatronDeposit",
     type: "event"
   },
   {
@@ -91,7 +72,7 @@ module.exports = [
       {
         indexed: true,
         internalType: "address",
-        name: "investor",
+        name: "patron",
         type: "address"
       },
       {
@@ -101,7 +82,7 @@ module.exports = [
         type: "uint256"
       }
     ],
-    name: "SupporterWithdraw",
+    name: "PatronWithdraw",
     type: "event"
   },
   {
@@ -113,57 +94,31 @@ module.exports = [
         type: "address"
       }
     ],
-    name: "_supportersCollateralBalance",
+    name: "_patrons",
     outputs: [
       {
         internalType: "uint256",
-        name: "",
+        name: "daiBalance",
         type: "uint256"
-      }
-    ],
-    payable: false,
-    stateMutability: "view",
-    type: "function"
-  },
-  {
-    constant: true,
-    inputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address"
-      }
-    ],
-    name: "_supportersSubmissions",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256"
-      }
-    ],
-    payable: false,
-    stateMutability: "view",
-    type: "function"
-  },
-  {
-    constant: false,
-    inputs: [
-      {
-        internalType: "bytes32",
-        name: "mediumPostUUID",
-        type: "bytes32"
       },
       {
-        internalType: "bytes32",
-        name: "bodyHash",
-        type: "bytes32"
+        internalType: "uint256",
+        name: "collateralBalance",
+        type: "uint256"
+      },
+      {
+        internalType: "uint256",
+        name: "lastCapitalization",
+        type: "uint256"
+      },
+      {
+        internalType: "uint256",
+        name: "capitalized",
+        type: "uint256"
       }
     ],
-    name: "announce",
-    outputs: [],
     payable: false,
-    stateMutability: "nonpayable",
+    stateMutability: "view",
     type: "function"
   },
   {
@@ -184,21 +139,6 @@ module.exports = [
         internalType: "address",
         name: "",
         type: "address"
-      }
-    ],
-    payable: false,
-    stateMutability: "view",
-    type: "function"
-  },
-  {
-    constant: true,
-    inputs: [],
-    name: "getCollateralBalance",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256"
       }
     ],
     payable: false,
@@ -238,7 +178,7 @@ module.exports = [
   {
     constant: true,
     inputs: [],
-    name: "getRaiser",
+    name: "getOwner",
     outputs: [
       {
         internalType: "address",
@@ -252,8 +192,14 @@ module.exports = [
   },
   {
     constant: true,
-    inputs: [],
-    name: "getSubmission",
+    inputs: [
+      {
+        internalType: "address",
+        name: "patron",
+        type: "address"
+      }
+    ],
+    name: "getPatronCollateralBalance",
     outputs: [
       {
         internalType: "uint256",
@@ -270,32 +216,11 @@ module.exports = [
     inputs: [
       {
         internalType: "address",
-        name: "supporter",
+        name: "patron",
         type: "address"
       }
     ],
-    name: "getSupporterCollateralBalance",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256"
-      }
-    ],
-    payable: false,
-    stateMutability: "view",
-    type: "function"
-  },
-  {
-    constant: true,
-    inputs: [
-      {
-        internalType: "address",
-        name: "supporter",
-        type: "address"
-      }
-    ],
-    name: "getSupporterSubmission",
+    name: "getPatronDaiBalance",
     outputs: [
       {
         internalType: "uint256",
